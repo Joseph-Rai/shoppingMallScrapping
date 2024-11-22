@@ -22,7 +22,9 @@ async function main() {
 
     // 기본 저장경로는 다운로드 폴더
     const exporter = new ExcelExporter();
-    exporter.exportToExcel(await manoPaloScraper.getProductList());
+    const products = await manoPaloScraper.getProductList();
+    exporter.exportToExcel(products);
+    await exporter.downloadThumbNailImagesAll(products);
   } finally {
     // 6. 브라우저 종료
     manoPaloScraper.quitDriver();

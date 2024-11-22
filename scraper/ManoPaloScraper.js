@@ -66,7 +66,9 @@ class ManoPaloScraper extends IScraper {
         this.driver.findElement(By.css('.item_detail_tit h3')).getText(),
 
         // 가격 추출
-        this.driver.findElement(By.css('.item_price strong strong')).getText(),
+        (
+          await this.driver.findElement(By.css('strong.item_price')).getText()
+        ).split(' : ')[1],
 
         // 상품코드 추출
         this.driver
@@ -99,11 +101,11 @@ class ManoPaloScraper extends IScraper {
     }
 
     // 이미지 url 추출
-    const imgUrls = [];
+    const imgTags = [];
     for (let i = 0; i < imgUrlElements.length; i++) {
-      const imgUrl = await imgUrlElements[i].getAttribute('src');
-      if (imgUrl) {
-        imgUrls.push(imgUrl);
+      const imgTag = await imgUrlElements[i].getAttribute('outerHTML');
+      if (imgTag && imgTag.indexOf('src=') > 0) {
+        imgTags.push(imgTag);
       }
     }
 
@@ -113,7 +115,7 @@ class ManoPaloScraper extends IScraper {
       code,
       options,
       stocks,
-      imgUrls,
+      imgTags,
       thumbNailUrl
     );
     product.displayInfo();
