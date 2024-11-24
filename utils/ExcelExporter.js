@@ -3,7 +3,6 @@ const path = require('path'); // path 모듈 추가
 const os = require('os'); // os 모듈 추가
 const fs = require('fs');
 const accounting = require('accounting');
-const ImageDownloader = require('./ImageDownLoader');
 
 class ExcelExporter {
   constructor(savePath = null, fileName = 'products.xlsx') {
@@ -23,21 +22,6 @@ class ExcelExporter {
   // 저장 경로를 설정하는 set 함수
   setSavePath(path) {
     this.savePath = path;
-  }
-
-  // 썸네일 이미지 일괄 다운로드
-  async downloadThumbNailImagesAll(products) {
-    const downloadPromises = products.map((product) =>
-      this.downloadThumbNailImage(product)
-    );
-    await Promise.all(downloadPromises);
-  }
-
-  // 썸네일 이미지 다운로드
-  async downloadThumbNailImage(product) {
-    const downloader = new ImageDownloader();
-    const url = product.thumbNailUrl;
-    await downloader.downloadImage(url);
   }
 
   // 단일 Product 객체를 Excel로 내보내기

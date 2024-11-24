@@ -53,6 +53,11 @@ class ImageDownloader {
       throw error;
     }
   }
+
+  async downloadImageAll(urls) {
+    const promises = urls.map((url) => this.downloadImage(url));
+    await Promise.all(promises);
+  }
 }
 
 module.exports = ImageDownloader;

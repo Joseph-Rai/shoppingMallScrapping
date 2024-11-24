@@ -1,6 +1,7 @@
 const { By, until } = require('selenium-webdriver');
 const IScraper = require('./IScraper');
 const Product = require('../product/Product');
+const { sleep } = require('../utils');
 
 class ManoPaloScraper extends IScraper {
   constructor(id, password) {
@@ -26,7 +27,7 @@ class ManoPaloScraper extends IScraper {
     await btnLogin.click();
 
     // 로그인 완료될 때까지 대기
-    await super.sleep(3000);
+    await sleep(3000);
   }
 
   // 상품 URL 리스트 가져오기 메서드
@@ -58,7 +59,7 @@ class ManoPaloScraper extends IScraper {
     const url = this.productUrls[urlIndex];
     const thumbNailUrl = this.thumbNailUrls[urlIndex];
     await this.driver.get(url);
-    await super.sleep(500);
+    await sleep(500);
 
     const [title, price, code, optionElements, imgUrlElements] =
       await Promise.all([
