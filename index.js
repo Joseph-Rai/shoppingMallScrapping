@@ -3,7 +3,7 @@ const ManoPaloScraper = require('./scraper/ManoPaloScraper.js');
 
 main();
 
-async function main() {
+async function main() { 
   const id = '';
   const password = '';
 
